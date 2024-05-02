@@ -82,10 +82,11 @@ spec:
 ```t
 kubectl apply -f deployment.yaml -f service.yaml -f hpa.yaml
 ```
-## Step-06: Get the Pod resource on dev namespace
+
+## Step-06: Get the live Pod resource on dev namespace
 
 ```t
-kubectl get pods -o wide
+kubectl get pods -o wide -w
 ```
 
 ## Step-07: Get the Deployment resource on dev namespace
