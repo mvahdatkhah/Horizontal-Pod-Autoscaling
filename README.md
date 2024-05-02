@@ -115,7 +115,7 @@ NAME             REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS 
 php-apache-hpa   Deployment/php-apache   0%/60%    1         10        1          5m8s
 ```
 
-## Step-10: Run a debugger Pod based on alpine image
+## Step-10: Run a debuger Pod based on alpine image
 
 ```t
 kubectl run debuger --namespace dev --image=alpine --command sleep infinity
@@ -159,7 +159,7 @@ This behavior has the same scale-up pattern as the previous example. However the
 1000 -> 1000 -> 1000 -> … (7 more min) -> 999
 ```
 
-## Step-13: Exec a command in Pod debugger for create a continuesly request on service
+## Step-13: Exec a command in Pod debuger for create a continuesly request on service
 
 ```t
 kubectl exec -it debuger --namespace dev -- sh
@@ -291,7 +291,7 @@ Now only one apache Pod run at the moment
 Run  the `kubectl get pod -o wide -w` command to see the number of running Pod
 
 ```t
-k get pod -o wide                                
+kubectl get pod -o wide                                
 NAME                          READY   STATUS    RESTARTS   AGE   IP             NODE        NOMINATED NODE   READINESS GATES
 debuger                       1/1     Running   0          46m   10.10.45.239   kubenode3   <none>           <none>
 php-apache-5d54745f55-jk6l8   1/1     Running   0          31m   10.10.35.111   kubenode2   <none>           <none>
@@ -300,10 +300,16 @@ php-apache-5d54745f55-jk6l8   1/1     Running   0          31m   10.10.35.111   
 ## Step-16: Clean up the manidest files
 
 The simplest method of deleting any resource in Kubernetes is to use the specific manifest file used to create it. With the manifest file on hand, we can use the kubectl delete command with the -f flag.
-To delete Kubernetes Resources run the `kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml` and for deleting the debugger Pod run the `kubectl delete pod debugger` command
+To delete Kubernetes Resources run the `kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml` and for deleting the debuger Pod run the `kubectl delete pod debuger` command
 
 ```t
+kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml
 deployment.apps "php-apache" deleted
 service "php-apache-svc" deleted
 horizontalpodautoscaler.autoscaling "php-apache-hpa" deleted
+```
+
+```t
+kubectl delete pod debuger 
+pod "debuger" deleted
 ```
