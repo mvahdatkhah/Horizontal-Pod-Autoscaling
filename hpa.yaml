@@ -7,20 +7,24 @@ spec:
   behavior:
     scaleUp:
       policies:
-      - type: Pods
-        value: 2
-        periodSeconds: 60
-      - type: Percent
-        value: 100
+        - type: Pods
+          value: 2
+          periodSeconds: 30
+        - type: Percent
+          value: 100
+          periodSeconds: 30
       selectPolicy: Max
+      stabilizationWindowSeconds: 5
     scaleDown:
       policies:
-      - type: Pods
-        value: 4
-        periodSeconds: 60 # (i.e., scale down one pod every 10 min)
-      - type: Percent
-        value: 10
+        - type: Pods
+          value: 4
+          periodSeconds: 30 # (i.e., scale down one pod every 10 min)
+        - type: Percent
+          value: 10
+          periodSeconds: 30
       selectPolicy: Min
+      stabilizationWindowSeconds: 5
   scaleTargetRef:
     kind: Deployment
     name: php-apache
