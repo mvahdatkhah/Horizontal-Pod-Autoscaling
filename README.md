@@ -191,5 +191,36 @@ kubectl exec -it debuger --namespace dev -- sh
 ```t
 kubectl top pod php-apache-5d54745f55-gvrln
 NAME                          CPU(cores)   MEMORY(bytes)
-php-apache-5d54745f55-gvrln   1m           8Mi
+php-apache-5d54745f55-gvrln   114m         11Mi
+```
+
+```t
+Now see the output of the `kubectl get pod -o wide -w`
+NAME                          READY   STATUS    RESTARTS   AGE     IP             NODE        NOMINATED NODE   READINESS GATES
+debuger                       1/1     Running   0          6m43s   10.10.45.239   kubenode3   <none>           <none>
+php-apache-5d54745f55-gvrln   1/1     Running   0          7m1s    10.10.45.195   kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Pending   0          0s      <none>         <none>      <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Pending   0          0s      <none>         kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     ContainerCreating   0          0s      <none>         kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     ContainerCreating   0          1s      <none>         kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   1/1     Running             0          11s     10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-jk6l8   0/1     Pending             0          0s      <none>          <none>      <none>           <none>
+php-apache-5d54745f55-jk6l8   0/1     Pending             0          0s      <none>          kubenode2   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Pending             0          0s      <none>          <none>      <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Pending             0          0s      <none>          kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   0/1     ContainerCreating   0          0s      <none>          kubenode2   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     ContainerCreating   0          1s      <none>          kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     ContainerCreating   0          1s      <none>          kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   0/1     ContainerCreating   0          1s      <none>          kubenode2   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     ErrImagePull        0          4s      10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   1/1     Running             0          11s     10.10.35.111    kubenode2   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Pending             0          0s      <none>          <none>      <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Pending             0          1s      <none>          kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     ContainerCreating   0          1s      <none>          kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     ContainerCreating   0          2s      <none>          kubenode1   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     ImagePullBackOff    0          17s     10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     ErrImagePull        0          11s     10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-9rg2h   1/1     Running             0          33s     10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     ImagePullBackOff    0          23s     10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   1/1     Running             0          32s     10.10.205.199   kubenode1   <none>           <none>
 ```
