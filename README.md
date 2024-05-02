@@ -237,3 +237,13 @@ Also see the output of the `kubectl get hpa` command
 NAME             REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
 php-apache-hpa   Deployment/php-apache   58%/60%   1         10        5          20m
 ```
+
+```t
+After create a continuesly request on service see the output of the `kubectl get pod -o wide | grep -i running` command
+debuger                       1/1     Running   0          22m     10.10.45.239    kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   1/1     Running   0          7m36s   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   1/1     Running   0          7m51s   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gvrln   1/1     Running   0          23m     10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   1/1     Running   0          7m36s   10.10.35.111    kubenode2   <none>           <none>
+php-apache-5d54745f55-vktqq   1/1     Running   0          7m21s   10.10.205.199   kubenode1   <none>           <none>
+```
