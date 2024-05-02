@@ -153,29 +153,11 @@ behavior:
       periodSeconds: 600 # (i.e., scale down one pod every 10 min)
 ```
 
-i.e., the algorithm will:
+This behavior has the same scale-up pattern as the previous example. However the behavior for scaling down is also specified. The scaleUp behavior will be fast as explained in the previous example. However the target will scale down by only one pod every 10 minutes.
 
-    gather recommendations for 600 seconds (default: 300 seconds)
-    pick the largest one
-    scale down no more than 5 pods per minute
-
-Example for CurReplicas = 10 and HPA controller cycle once per a minute:
-
-    First 9 minutes the algorithm will do nothing except gathering recommendations. Let's imagine that we have the following recommendations
-
-    recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9]
-
-    On the 10th minute, we'll add one more recommendation (let it me 8):
-
-    recommendations = [10, 9, 8, 9, 9, 8, 9, 8, 9, 8]
-
-    Now the algorithm picks the largest one 10. Hence it will not change number of replicas
-
-    On the 11th minute, we'll add one more recommendation (let it be 7) and removes the first one to keep the same amount of recommendations:
-
-    recommendations = [9, 8, 9, 9, 8, 9, 8, 9, 8, 7]
-
-    The algorithm picks the largest value 9 and changes the number of replicas 10 -> 9
+```t
+1000 -> 1000 -> 1000 -> … (7 more min) -> 999
+```
 
 ## Step-13: Exec a command in Pod debugger for create a continuesly request on service
 
@@ -244,4 +226,21 @@ php-apache-5d54745f55-gq8kj   1/1     Running   0          7m51s   10.10.205.239
 php-apache-5d54745f55-gvrln   1/1     Running   0          23m     10.10.45.195    kubenode3   <none>           <none>
 php-apache-5d54745f55-jk6l8   1/1     Running   0          7m36s   10.10.35.111    kubenode2   <none>           <none>
 php-apache-5d54745f55-vktqq   1/1     Running   0          7m21s   10.10.205.199   kubenode1   <none>           <none>
+```
+
+## Step-15: Now drop the continuesly request on service and see the scale down one pod every 10 min
+
+Now see the output of the `kubectl top pod php-apache-5d54745f55-gvrln` and `kubectl get hpa` commands
+
+```t
+kubectl get hpa
+NAME             REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache-hpa   Deployment/php-apache   0%/60%    1         10        5          39m
+```
+
+```t
+kubectl top pod php-apache-5d54745f55-gvrln
+NAME                          CPU(cores)   MEMORY(bytes)
+php-apache-5d54745f55-gvrln   1m           11Mi
+
 ```
