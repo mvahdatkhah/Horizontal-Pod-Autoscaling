@@ -302,7 +302,7 @@ php-apache-5d54745f55-jk6l8   1/1     Running   0          31m   10.10.35.111   
 The simplest method of deleting any resource in Kubernetes is to use the specific manifest file used to create it. With the manifest file on hand, we can use the kubectl delete command with the -f flag.
 To delete Kubernetes Resources run the `kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml` command.
 
-kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml
+`kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml`
 
 ```t
 deployment.apps "php-apache" deleted
@@ -312,7 +312,7 @@ horizontalpodautoscaler.autoscaling "php-apache-hpa" deleted
 
 And for deleting the debuger Pod run the `kubectl delete pod debuger` command.
 
-kubectl delete pod debuger 
+`kubectl delete pod debuger`
 
 ```t
 pod "debuger" deleted
