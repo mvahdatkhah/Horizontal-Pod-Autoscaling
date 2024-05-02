@@ -79,8 +79,7 @@ spec:
 
 ## Step-05: Apply the Kubernetes Manifest files
 
-```kubectl apply -f deployment.yaml -f service.yaml -f hpa.yaml
-```
+kubectl apply -f deployment.yaml -f service.yaml -f hpa.yaml
 
 ## Step-0: Scale Up As Fast As Possible, Scale Down Very Gradually
 ## This mode is essential when you do not want to risk scaling down very quickly.
