@@ -1,0 +1,30 @@
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2
+metadata:
+  name: php-apache-hpa
+  namespace: dev
+spec:
+  behavior:
+    scaleUp:
+      policies:
+      - type: Percent
+        value: 900
+        periodSeconds: 60
+    scaleDown:
+      policies:
+      - type: Pods
+        value: 1
+        periodSeconds: 600 # (i.e., scale down one pod every 10 min)
+  scaleTargetRef:
+    kind: Deployment
+    name: php-apache
+    apiVersion: apps/v1
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
