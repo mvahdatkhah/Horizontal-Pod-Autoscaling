@@ -82,6 +82,36 @@ spec:
 ```t
 kubectl apply -f deployment.yaml -f service.yaml -f hpa.yaml
 ```
+## Step-06: Get the Pod resource on dev namespace
+
+```t
+kubectl get pods -o wide
+```
+
+## Step-07: Get the Deployment resource on dev namespace
+
+```t
+kubectl get deployments
+```
+
+## Step-08: Get the Services resource on dev namespace
+
+```t
+kubectl get services
+```
+
+## Step-09: Get the Horizontal Pod Autoscaling
+
+```t
+kubectl get hpa
+```
+
+## Step-10: Run a debugger Pod based on alpine image for create a continuesly request on service
+
+```t
+kubectl run debuger --namespace dev --image=alpine --command sleep infinity
+```
+
 ## Step-0: Scale Up As Fast As Possible, Scale Down Very Gradually
 ## This mode is essential when you do not want to risk scaling down very quickly.
 
