@@ -247,3 +247,64 @@ NAME                          CPU(cores)   MEMORY(bytes)
 php-apache-5d54745f55-gvrln   1m           11Mi
 
 ```
+
+Now see the output of the `kubectl get pod -o wide -w` command
+
+```t
+kubectl get pod -o wide -w
+NAME                          READY   STATUS    RESTARTS   AGE   IP              NODE        NOMINATED NODE   READINESS GATES
+debuger                       1/1     Running   0          41m   10.10.45.239    kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   1/1     Running   0          26m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   1/1     Running   0          26m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gvrln   1/1     Running   0          41m   10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   1/1     Running   0          26m   10.10.35.111    kubenode2   <none>           <none>
+php-apache-5d54745f55-vktqq   1/1     Running   0          26m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   1/1     Terminating   0          27m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   1/1     Terminating   0          27m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Terminating   0          27m   <none>          kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Terminating   0          27m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Terminating   0          27m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-vktqq   0/1     Terminating   0          27m   10.10.205.199   kubenode1   <none>           <none>
+php-apache-5d54745f55-gvrln   1/1     Terminating   0          43m   10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   1/1     Terminating   0          27m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   1/1     Terminating   0          27m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-9rg2h   1/1     Terminating   0          27m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gvrln   1/1     Terminating   0          43m   10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   1/1     Terminating   0          27m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Terminating   0          27m   <none>          kubenode1   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Terminating   0          27m   <none>          kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Terminating   0          27m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gvrln   0/1     Terminating   0          43m   <none>          kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Terminating   0          27m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-9rg2h   0/1     Terminating   0          27m   10.10.45.224    kubenode3   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Terminating   0          27m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Terminating   0          27m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gq8kj   0/1     Terminating   0          27m   10.10.205.239   kubenode1   <none>           <none>
+php-apache-5d54745f55-gvrln   0/1     Terminating   0          43m   10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-gvrln   0/1     Terminating   0          43m   10.10.45.195    kubenode3   <none>           <none>
+php-apache-5d54745f55-gvrln   0/1     Terminating   0          43m   10.10.45.195    kubenode3   <none>           <none>
+```
+
+However the target will scale down by only one pod every 10 minutes.
+Now only one apache Pod run at the moment
+
+Run  the `kubectl get pod -o wide -w` command to see the number of running Pod
+
+```t
+k get pod -o wide                                
+NAME                          READY   STATUS    RESTARTS   AGE   IP             NODE        NOMINATED NODE   READINESS GATES
+debuger                       1/1     Running   0          46m   10.10.45.239   kubenode3   <none>           <none>
+php-apache-5d54745f55-jk6l8   1/1     Running   0          31m   10.10.35.111   kubenode2   <none>           <none>
+```
+
+## Step-16: Clean up the manidest files
+
+The simplest method of deleting any resource in Kubernetes is to use the specific manifest file used to create it. With the manifest file on hand, we can use the kubectl delete command with the -f flag.
+To delete Kubernetes Resources run the `kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml` and for deleting the debugger Pod run the `kubectl delete pod debugger` command
+
+```t
+kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml
+deployment.apps "php-apache" deleted
+service "php-apache-svc" deleted
+horizontalpodautoscaler.autoscaling "php-apache-hpa" deleted
+```
