@@ -4,17 +4,6 @@ metadata:
   name: php-apache-hpa
   namespace: dev
 spec:
-  behavior:
-    scaleUp:
-      policies:
-      - type: Percent
-        value: 900
-        periodSeconds: 60
-    scaleDown:
-      policies:
-      - type: Pods
-        value: 1
-        periodSeconds: 600 # (i.e., scale down one pod every 10 min)
   scaleTargetRef:
     kind: Deployment
     name: php-apache
