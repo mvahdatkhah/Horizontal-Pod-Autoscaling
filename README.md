@@ -195,7 +195,8 @@ php-apache-5d54745f55-gvrln   114m         11Mi
 ```
 
 ```t
-Now see the output of the `kubectl get pod -o wide -w`
+Now see the output of the `kubectl get pod -o wide -w` command
+
 NAME                          READY   STATUS    RESTARTS   AGE     IP             NODE        NOMINATED NODE   READINESS GATES
 debuger                       1/1     Running   0          6m43s   10.10.45.239   kubenode3   <none>           <none>
 php-apache-5d54745f55-gvrln   1/1     Running   0          7m1s    10.10.45.195   kubenode3   <none>           <none>
@@ -223,4 +224,16 @@ php-apache-5d54745f55-vktqq   0/1     ErrImagePull        0          11s     10.
 php-apache-5d54745f55-9rg2h   1/1     Running             0          33s     10.10.45.224    kubenode3   <none>           <none>
 php-apache-5d54745f55-vktqq   0/1     ImagePullBackOff    0          23s     10.10.205.199   kubenode1   <none>           <none>
 php-apache-5d54745f55-vktqq   1/1     Running             0          32s     10.10.205.199   kubenode1   <none>           <none>
+```
+
+```t
+Again see the output of the `kubectl top pod php-apache-5d54745f55-gvrln` command
+NAME                          CPU(cores)   MEMORY(bytes)
+php-apache-5d54745f55-gvrln   200m         11Mi
+```
+
+```t
+Also see the output of the `kubectl get hpa` command
+NAME             REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache-hpa   Deployment/php-apache   58%/60%   1         10        5          20m
 ```
