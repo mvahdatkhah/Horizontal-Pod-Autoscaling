@@ -140,17 +140,27 @@ php-apache-5d54745f55-gvrln   1m           8Mi
 This mode is essential when you do not want to risk scaling down very quickly.
 
 ```yaml
-behavior:
-  scaleUp:
-    policies:
-    - type: Percent
-      value: 900
-      periodSeconds: 60
-  scaleDown:
-    policies:
-    - type: Pods
-      value: 1
-      periodSeconds: 600 # (i.e., scale down one pod every 10 min)
+  behavior:
+    scaleUp:
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 30
+        - type: Percent
+          value: 100
+          periodSeconds: 30
+      selectPolicy: Max
+      stabilizationWindowSeconds: 5
+    scaleDown:
+      policies:
+        - type: Pods
+          value: 4
+          periodSeconds: 30 # (i.e., scale down one pod every 10 min)
+        - type: Percent
+          value: 10
+          periodSeconds: 30
+      selectPolicy: Min
+      stabilizationWindowSeconds: 5
 ```
 
 This behavior has the same scale-up pattern as the previous example. However the behavior for scaling down is also specified. The scaleUp behavior will be fast as explained in the previous example. However the target will scale down by only one pod every 10 minutes.
