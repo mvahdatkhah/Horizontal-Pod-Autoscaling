@@ -153,7 +153,6 @@ behavior:
       periodSeconds: 600 # (i.e., scale down one pod every 10 min)
 ```
 
-```t
 i.e., the algorithm will:
 
     gather recommendations for 600 seconds (default: 300 seconds)
@@ -177,7 +176,6 @@ Example for CurReplicas = 10 and HPA controller cycle once per a minute:
     recommendations = [9, 8, 9, 9, 8, 9, 8, 9, 8, 7]
 
     The algorithm picks the largest value 9 and changes the number of replicas 10 -> 9
-```
 
 ## Step-13: Exec a command in Pod debugger for create a continuesly request on service
 
