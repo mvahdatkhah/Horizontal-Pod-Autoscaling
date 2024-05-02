@@ -303,7 +303,7 @@ The simplest method of deleting any resource in Kubernetes is to use the specifi
 To delete Kubernetes Resources run the `kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml` and for deleting the debugger Pod run the `kubectl delete pod debugger` command
 
 ```t
-kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml
+`kubectl delete -f deployment.yaml -f service.yaml -f hpa.yaml`
 deployment.apps "php-apache" deleted
 service "php-apache-svc" deleted
 horizontalpodautoscaler.autoscaling "php-apache-hpa" deleted
