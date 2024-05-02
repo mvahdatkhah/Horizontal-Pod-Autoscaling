@@ -137,7 +137,7 @@ php-apache-5d54745f55-gvrln   1m           8Mi
 ```
 
 ## Step-12: Scale Up As Fast As Possible, Scale Down Very Gradually
-## This mode is essential when you do not want to risk scaling down very quickly.
+This mode is essential when you do not want to risk scaling down very quickly.
 
 ```yaml
 behavior:
